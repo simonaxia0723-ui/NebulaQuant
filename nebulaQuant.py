@@ -7,23 +7,26 @@ print("You selected: ", ticker)
 
 data = yf.download(ticker, period="5y")
 
-print(data.head())
-print(data.shape)
-
 close_prices = data["Close"]
 print(close_prices.head())
-
 print("highest closing price:", close_prices.max())
-
 print("lowest closing price:", close_prices.min())
-
 print("mean of closing price:", close_prices.mean())
-
 print("number of trading days:", len(close_prices))
 
 #show the graph
 close_prices.plot()
-plt.show()
 plt.title("stock price")
 plt.xlabel("time")
 plt.ylabel("closing price")
+plt.show()
+
+daily_returns = close_prices.pct_change().round(5).dropna()
+print(daily_returns.head())
+daily_returns.plot()
+plt.title("daily returns")
+plt.xlabel("time")
+plt.ylabel("daily returns")
+plt.show()
+
+print("volatility:", daily_returns.std())
