@@ -30,3 +30,16 @@ plt.ylabel("daily returns")
 plt.show()
 
 print("volatility:", daily_returns.std())
+
+#3 stocks on one graph
+tickers = ["NVDA", "MSFT", "GOOGL"]
+fig, ax = plt.subplots()
+for ticker in tickers:
+    data = yf.download(ticker, period="5y")
+    close_prices = data["Close"].squeeze()
+    ax.plot(close_prices.index, close_prices, label=ticker)
+ax.set_title("stock price")
+ax.set_xlabel("time")
+ax.set_ylabel("closing price")
+ax.legend()
+plt.show()
